@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Feedback</title>
+<style>
+    body {
+        background-color: #333;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+    form {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #444;
+        color: #fff;
+        box-sizing: border-box; /* Menambahkan properti box-sizing */
+    }
+    button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    /* Style untuk popup */
+    .custom-alert {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+    }
+
+    /* Style untuk container */
+    .container {
+        max-width: 350px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Style untuk kebijakan dan privasi */
+    .privacy-policy {
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #555;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+    <h1>Feedback Form</h1>
+    <form id="feedbackForm">
+        <input type="text" id="username" placeholder="Username">
+        <textarea id="comment" placeholder="Komentar"></textarea>
+        <input type="number" id="rate" placeholder="Rate">
+        <button type="submit">Kirim</button>
+    </form>
+
+    <div class="custom-alert" id="customAlert">
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+
+    <div class="privacy-policy">
+        <h2>Kebijakan dan Privasi</h2>
+        <p>
+            Website "DumpMe" adalah sebuah platform yang dibuat semata-mata untuk tujuan hiburan dan pengembangan pribadi. Kami ingin memastikan bahwa setiap pengguna dapat merasa aman dan nyaman saat mengakses situs web kami. Dengan itu, kami ingin memberikan jaminan bahwa website DumpMe tidak akan meminta atau memerlukan izin akses apa pun dari pengguna.
+        </p>
+        <p>
+            Kami berkomitmen untuk menjaga privasi dan keamanan data pengguna dengan serius. Meskipun website DumpMe hanya digunakan untuk bersenang-senang dan sebagai wadah untuk mengumpulkan hasil belajar kami, kami tetap menjaga standar etika dan keamanan yang tinggi dalam mengelola informasi pengguna.
+        </p>
+        <p>
+            Kami tidak akan menyimpan informasi pribadi pengguna tanpa persetujuan mereka. Setiap kegiatan yang dilakukan di website DumpMe dirancang dengan tujuan memberikan pengalaman yang menyenangkan dan bermanfaat bagi pengguna tanpa mengorbankan privasi dan keamanan mereka.
+        </p>
+        <p>
+            Kami senantiasa mengikuti pembaharuan kebijakan privasi dan berkomitmen untuk memberikan transparansi dalam pengelolaan data pengguna. Sebagai tim di balik website DumpMe, kami selalu siap menerima masukan dan saran dari pengguna untuk terus meningkatkan layanan kami.
+        </p>
+        <p>
+            Terima kasih telah bergabung dengan komunitas DumpMe dan kami berharap Anda menikmati pengalaman bersenang-senang di platform kami tanpa perlu khawatir akan keamanan dan privasi data Anda.
+        </p>
+    </div>
+
+    <script>
+        const form = document.getElementById('feedbackForm');
+        const customAlert = document.getElementById('customAlert');
+        const alertMessage = document.getElementById('alertMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const comment = document.getElementById('comment').value;
+            const rate = document.getElementById('rate').value;
+
+            if (username.length < 3) {
+                showAlert('Setidaknya Masukan Nama 3 Huruf');
+            } else if (comment.split(' ').length < 5) {
+                showAlert('Setidaknya 5 Kata Komentar Yang Dimasukan');
+            } else {
+                const message = `Username: ${username}\nKomentar: ${comment}\nRate: ${rate}`;
+                window.open(`https://api.whatsapp.com/send?phone=6285795406671&text=${encodeURIComponent(message)}`, '_blank');
+            }
+        });
+
+        function showAlert(message) {
+            alertMessage.textContent = message;
+            customAlert.style.display = 'block';
+        }
+
+        function closeAlert() {
+            customAlert.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
